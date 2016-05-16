@@ -34,4 +34,7 @@ public interface ClientDAO extends BankDAO{
 	   public void updateClient(String firstName, String lastName, Date dob, Integer id);
 	   public void changePassword(String password, Integer id);
 	   public int getLoginClient(String username, String password);
+	   public int getLoginTry(Integer id);
+	   public void addLoginTry(Integer id);
+	   public void deleteLoginTry(Integer id);
 }

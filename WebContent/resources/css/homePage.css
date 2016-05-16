@@ -22,6 +22,12 @@ h1{
 	text-align: center;
 }
 
+#error-message{
+	color: red;
+	font-size: 15px;
+	font-style: italic;
+}
+
 .tab{
 	list-style-type: none;
     margin: 0;
@@ -57,17 +63,68 @@ h1{
 	width: 100%;
 }
 
-.content-container{
+#content-container{
 	display: block;
 	height: 100%;
 	width: 100%;
-	border: 1px solid #c4ccc9;
 }
 .tab-content{
     display: none;
-    padding: 6px 12px;
+    padding: 20px 30px;
     border: 1px solid #ccc;
     border-top: none;
+}
+
+.tab-item{
+	margin: 5px;
+	padding: 5px;
+	width: 300px;
+	border: 1px solid #71604C;
+	text-align: left;
+}
+.tab-item tr td:first-child{
+	width:170px;
+}
+
+#op-options{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	background: #71604C;
+	width: 150px;
+	float: left;
+}
+
+#op-options li{
+	width: 100%;
+	text-align: center;
+}
+
+#op-options li:hover{
+	background-color: #C1B198;
+}
+
+#op-options li a{
+	width: 100%;	
+}
+
+#op-options li a:focus{
+	background-color: #C1B198;
+}
+
+#op-options li a{
+	display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 5px 0px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+#operations-container{
+	display: inline-block;
+	margin-left: 20px;
 }
 
 #footer{

@@ -29,19 +29,20 @@
 			<li><a href="#" class="tablink" data="accounts">My accounts</a></li>
 			<li><a href="#" class="tablink" data="cards">My cards</a></li>
 			<li><a href="#" class="tablink" data="loans">My loans</a></li>
+			<li><a href="#" class="tablink" data="operations">Operations</a></li>
 		</ul>
 		
 		<div class="content-container">		
 		<div id="accounts" class="tab-content" style="display: block;">
 			<c:forEach items="${client.accounts}" var="account">
-				<table>
+				<table class="tab-item">
 					<tr>
 						<td>Account number:</td>
 						<td>${account.number}</td>
 					</tr>
 					<tr>
 						<td>Balance:</td>
-						<td>${account.balance}</td>
+						<td>${account.balance} $</td>
 					</tr>
 				</table>
 			</c:forEach>
@@ -49,7 +50,7 @@
 		
 		<div id="cards" class="tab-content">
 			<c:forEach items="${client.cards}" var="card">
-				<table>
+				<table class="tab-item">
 					<tr>
 						<td>Account number:</td>
 						<td>${card.accountID}</td>
@@ -64,21 +65,45 @@
 		
 		<div id="loans" class="tab-content">
 		<c:forEach items="${client.loans}" var="loan">
-				<table>
+				<table class="tab-item">
 					<tr>
 						<td>Amount:</td>
-						<td>${loan.amount}</td>
+						<td>${loan.amount} $</td>
 					</tr>
 					<tr>
 						<td>Interest:</td>
-						<td>${loan.interest}</td>
+						<td>${loan.interest} %</td>
 					</tr>
 					<tr>
 						<td>Repaid amount:</td>
-						<td>${loan.paid}</td>
+						<td>${loan.paid} $</td>
 					</tr>
 				</table>
 			</c:forEach>
+		</div>
+		
+		<div id="operations" class="tab-content">
+			<ul id="op-options">
+				<li><a href="#" class="trans-nav" data="new-transaction">Transaction</a></li>
+				<li><a href="#" class="trans-nav" data="new-loan">Take loan</a></li>
+				<li><a href="#" class="trans-nav" data="deactivate-card">Deactivate card</a></li>
+				<li><a href="#" class="trans-nav" data="change-pass">Change password</a></li>
+			</ul>
+			
+			<div id="operations-container">
+				<div id="new-transaction">
+					TRANSACTION
+				</div>
+				<div id="new-loan">
+					LAONS
+				</div>
+				<div id="deactivate-card">
+					CARDS
+				</div>
+				<div id="change-pass">
+					PASSWORD
+				</div>
+			</div>
 		</div>
 	</div>
 	</div>

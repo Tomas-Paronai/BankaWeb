@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,6 +13,7 @@ import com.parohyapp.bank.Account;
 import com.parohyapp.bank.Card;
 import com.parohyapp.bank.Client;
 import com.parohyapp.bank.Loan;
+import com.parohyapp.database.ErrorCode;
 import com.parohyapp.database.account.AccountDAO;
 import com.parohyapp.database.card.CardDAO;
 import com.parohyapp.database.loan.LoanDAO;
@@ -89,20 +91,61 @@ public class ClientDAOImpl implements ClientDAO{
 		try {
 			PreparedStatement statement = dataSource.getConnection().prepareStatement(query);
 			statement.setString(1, username);
-			statement.setString(2, password);
+			statement.setString(2, password);			
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()){
-				return rs.getInt("ClientID");
+				int id = rs.getInt("ClientID");
+				if(getLoginTry(id) <=3 ){
+					deleteLoginTry(id);
+					return id;
+				}
+				else{
+					return ErrorCode.ACCOUNT_BLOCKED.getCode();
+				}
+			}
+			else{
+				query = "SELECT * FROM client_login WHERE Username=?";				
+				statement = dataSource.getConnection().prepareStatement(query);
+				statement.setString(1, username);
+				rs = statement.executeQuery();
+				if(rs.next()){
+					int id = rs.getInt("ClientID");
+					addLoginTry(id);
+					return ErrorCode.INVALID_ACCESS.getCode();
+				}
 			}
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
-		return 0;
+		return ErrorCode.INVALID_ACCESS.getCode();
 	}
 	@Override
 	public void changePassword(String password, Integer id) {
 		String query = "UPDATE client_login SET Password=? WHERE ClientID=?";
 		jdbcTemplateObject.update(query,new Object[]{password,id});
+	}
+
+	@Override
+	public void addLoginTry(Integer id) {
+		System.out.println("inserting new login try");
+		String query = "INSERT INTO invalid_access VALUES (?,?)";
+		long time = System.currentTimeMillis();
+		Timestamp timestamp = new Timestamp(time);
+		jdbcTemplateObject.update(query,new Object[]{id,timestamp});
+	}
+
+	@Override
+	public int getLoginTry(Integer id) {
+		System.out.println("Returning login tries.");
+		String query = "SELECT count(*) FROM invalid_access WHERE ClientID=?";
+		return jdbcTemplateObject.queryForInt(query,new Object[]{id});
+	}
+
+	@Override
+	public void deleteLoginTry(Integer id) {
+		System.out.println("Deleting previous invalid tries for user ID: "+id);
+		String query = "DELETE FROM invalid_access WHERE ClientID=?";
+		jdbcTemplateObject.update(query,new Object[]{id});		
 	}
 
 	

@@ -16,7 +16,7 @@ public class Loan {
 		}
 	}
 	public float getInterest() {
-		return interest;
+		return interest*100;
 	}
 	public void setInterest(float interest) {
 		this.interest = interest;
