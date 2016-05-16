@@ -1,0 +1,101 @@
+html{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background: #778C84;
+	cursor: default;
+}
+body{
+	margin: auto;
+	padding: 10px;
+	width: 80%;
+	height: 100%;
+	background: #E7DBCA;
+}
+
+#login{
+	width: 300px;
+	margin: 0 auto;
+}
+
+h1{
+	text-align: center;
+}
+
+.tab{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;   
+    background-color: #71604C;
+}
+
+.tab li{
+	float: left;
+}
+
+.tab li:hover{
+	background-color: #C1B198;
+}
+
+.tab li a:focus{
+	background-color: #C1B198;
+}
+
+.tab li a{
+	display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+#center{
+	height: 80%;
+	width: 100%;
+}
+
+.content-container{
+	display: block;
+	height: 100%;
+	width: 100%;
+	border: 1px solid #c4ccc9;
+}
+.tab-content{
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+#footer{
+	position: absolute;
+	bottom: 0;	
+	width: 80%;
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;   
+    background-color: #71604C;
+}
+
+#footer li{
+	float: left;
+}
+
+#footer li a{
+	display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 10px;
+}
+
+#footer li a:hover{
+	color: #fff;
+}
+
