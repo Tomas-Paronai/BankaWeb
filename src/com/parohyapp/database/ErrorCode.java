@@ -3,7 +3,8 @@ package com.parohyapp.database;
 public enum ErrorCode {
 	
 	INVALID_ACCESS("Wrong login",1),
-	ACCOUNT_BLOCKED("Your account has been blocked",2);
+	ACCOUNT_BLOCKED("Your account has been blocked",2),
+	NO_SUCH_USER("No such user or invalid url",3);
 	
 	private final String message;
 	private final int code;
