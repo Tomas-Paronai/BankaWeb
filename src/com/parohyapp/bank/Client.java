@@ -5,19 +5,32 @@ import java.util.List;
 
 public class Client {
 	
+	private int id;
 	private String firstName;
 	private String lastName;
 	private Date dob;
+	
+	private Contact contact;
 	
 	private List<Account> accounts;
 	private List<Card> cards;
 	private List<Loan> loans;
 	
-	public Client(String firstName, String lastName, Date dob) {
+	public Client(int id,String firstName, String lastName, Date dob) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
+	}
+		
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -81,6 +94,20 @@ public class Client {
 			this.loans.addAll(loans);
 		}
 	}
-			
 	
+	
+	
+	public Contact getContact() {
+		return contact;
+	}
+
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+
+	public String getStringId(){
+		return String.valueOf(id);
+	}
 }

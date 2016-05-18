@@ -13,6 +13,8 @@ $(document).ready(function(){
 });
 
 function changeTabContent(el){
+	$(".tablink").attr('class','tablink');
+	$(el).toggleClass("chosen");
 	$(".tab-content").css("display","none");
 	$("#"+$(el).attr("data")).css("display","block");
 }

@@ -1,10 +1,11 @@
-package com.parohyapp.api;
+package com.parohyapp.api.beans;
 
 public class LoginBean {
 	
 	private String username;
 	private String password;
 	
+
 	public String getUsername() {
 		return username;
 	}

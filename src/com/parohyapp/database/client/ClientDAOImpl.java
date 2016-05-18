@@ -12,10 +12,12 @@ import javax.sql.DataSource;
 import com.parohyapp.bank.Account;
 import com.parohyapp.bank.Card;
 import com.parohyapp.bank.Client;
+import com.parohyapp.bank.Contact;
 import com.parohyapp.bank.Loan;
 import com.parohyapp.database.ErrorCode;
 import com.parohyapp.database.account.AccountDAO;
 import com.parohyapp.database.card.CardDAO;
+import com.parohyapp.database.clientcontact.ContactDAO;
 import com.parohyapp.database.loan.LoanDAO;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +27,7 @@ public class ClientDAOImpl implements ClientDAO{
 	private AccountDAO accountDAO;
 	private CardDAO cardDAO;
 	private LoanDAO loanDAO;
+	private ContactDAO contactDAO;
 	
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
@@ -51,9 +54,17 @@ public class ClientDAOImpl implements ClientDAO{
 	}
 	
 	@Override
+	public void setContactSource(ContactDAO contactDAO){
+		this.contactDAO = contactDAO;
+	}
+	
+	@Override
 	public Client getClient(Integer id) {
 		String query = "SELECT * FROM clients WHERE ClientID=?";
 		Client client = jdbcTemplateObject.queryForObject(query,new Object[]{id}, new ClientRowMapper());
+		
+		Contact contact = contactDAO.getClientContact(id);
+		client.setContact(contact);
 		
 		List<Loan> loans = loanDAO.getLoans(id);
 		client.setLoans(loans);
@@ -68,6 +79,7 @@ public class ClientDAOImpl implements ClientDAO{
 		
 		return client;
 	}
+	
 	@Override
 	public List<Client> listClients() {
 		String query = "SELECT * FROM clients";

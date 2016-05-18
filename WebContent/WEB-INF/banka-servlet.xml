@@ -45,6 +45,12 @@
       class="com.parohyapp.database.account.AccountDAOImpl">
       <property name="dataSource"  ref="dataSource" />    
    </bean>
+   
+   <!-- Definition for Contact bean -->
+   <bean id="ContactDAOImpl" 
+      class="com.parohyapp.database.clientcontact.ContactDAOImpl">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean>
 
    <!-- Definition for Client bean -->
    <bean id="ClientDAOImpl" 
@@ -53,7 +59,25 @@
       <property name="accountSource" ref="AccountDAOImpl" />
       <property name="cardSource" ref="CardDAOImpl" />
       <property name="loanSource" ref="LoanDAOImpl" />
+      <property name="contactSource" ref="ContactDAOImpl" />
    </bean>   
+   
+   <!-- Mail beans -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sovybank@gmail.com" />
+		<property name="password" value="Parohy93" />
+		
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
    
    <mvc:resources mapping="/resources/**" location="/resources/" />
    <mvc:annotation-driven />

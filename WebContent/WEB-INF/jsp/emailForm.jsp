@@ -17,42 +17,16 @@
 
 <body>	
 	<div id="login-container">
-	<form:form id="login" action="loginClient" method="post" modelAttribute="loginBean">
-		<h1>Client login</h1>
-		<div id="error-message">
+	<div id="error-message">
 			<c:if test="${!empty error}">
 				${error}
 			</c:if>
 		</div>
-		<table>
-			<tr class="form-row">
-				<td>
-					<form:label path="Username">Username: </form:label>
-				</td>
-				<td>
-					<form:input id="username" path="username" name="username"/>
-				</td>
-			</tr>
-			<tr class="form-row">
-				<td>
-					<form:label path="Password">Password: </form:label>
-				</td>
-				<td>
-					<form:password id="password" path="password" name="password"/>
-				</td>
-			</tr>
-			<tr class="form-row">
-				<td colspan="2">
-					<input type="Submit" value="Submit"/>
-				</td>
-			</tr>
-			<tr class="form-row">
-				<td colspan="2">
-					<a href="sendEmail">I forgot my password</a>
-				</td>
-			</tr>
-		</table>		
-	</form:form>	
+	<form:form action="sendEmail" modelAttribute="emailBean" method="post">
+		<form:label path="Email">Email: </form:label>
+		<form:input path="email"/><br>
+		<input type="submit" value="Send"/>
+	</form:form>
 	</div>
 </body>
 
