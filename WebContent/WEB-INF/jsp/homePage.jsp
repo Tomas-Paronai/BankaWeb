@@ -16,7 +16,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <spring:url value="/resources/js/navigation.js" var="navScript"/>
 <script src="${navScript}"></script>
+<spring:url value="/resources/js/load.js" var="loadScript"/>
+<script src="${loadScript}"></script>
 
+<spring:url value="/resources/img/operations/" var="picPath"/>
 </head>
 
 <body>
@@ -32,7 +35,7 @@
 			<li><a href="#" class="tablink" data="operations">Operations</a></li>
 		</ul>
 		
-		<div class="content-container">		
+		<div id="content-container">		
 		<div id="accounts" class="tab-content" style="display: block;">
 			<c:forEach items="${client.accounts}" var="account">
 				<table class="tab-item">
@@ -91,18 +94,35 @@
 			</ul>
 			
 			<div id="operations-container">
-				<div id="new-transaction">
-					TRANSACTION
+				<div id="new-transaction" class="trans-content">
+					TRANS				
+				</div>				
+				<div class="showcase" conn="new-transaction">
+					<img src="${picPath}trans.jpg">	
 				</div>
-				<div id="new-loan">
-					LAONS
+								
+				<div id="new-loan" class="trans-content">
+					LOANS						
 				</div>
-				<div id="deactivate-card">
-					CARDS
+				<div class="showcase" conn="new-loan">
+					<img src="${picPath}loans.jpg">
 				</div>
-				<div id="change-pass">
-					PASSWORD
+				
+				
+				<div id="deactivate-card" class="trans-content">
+					CARDS						
 				</div>
+				<div class="showcase" conn="deactivate-card">
+					<img src="${picPath}cards.jpg">
+				</div>				
+				
+				<div id="change-pass" class="trans-content">
+					PASS					
+				</div>
+				<div class="showcase" conn="change-pass">
+					<img src="${picPath}passwords.jpg">
+				</div>
+				
 			</div>
 		</div>
 	</div>
