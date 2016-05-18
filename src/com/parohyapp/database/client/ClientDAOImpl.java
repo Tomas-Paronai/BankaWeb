@@ -109,6 +109,7 @@ public class ClientDAOImpl implements ClientDAO{
 				int id = rs.getInt("ClientID");
 				if(getLoginTry(id) <=3 ){
 					deleteLoginTry(id);
+					insertLoginHistory(id);
 					return id;
 				}
 				else{
@@ -159,9 +160,16 @@ public class ClientDAOImpl implements ClientDAO{
 		String query = "DELETE FROM invalid_access WHERE ClientID=?";
 		jdbcTemplateObject.update(query,new Object[]{id});		
 	}
-
 	
-	
+	@Override
+	public void insertLoginHistory(Integer id){
+		long time = System.currentTimeMillis();
+		Timestamp timestamp = new Timestamp(time);
+		System.out.println("Login history dated "+timestamp);
+		
+		String query = "INSERT INTO client_history_login VALUES (?,?)";
+		jdbcTemplateObject.update(query,new Object[]{id,timestamp});
+	}
 	
 
 }

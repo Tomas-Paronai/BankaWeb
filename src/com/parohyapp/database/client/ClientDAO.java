@@ -26,4 +26,5 @@ public interface ClientDAO extends BankDAO{
 	   public int getLoginTry(Integer id);
 	   public void addLoginTry(Integer id);
 	   public void deleteLoginTry(Integer id);
+	   public void insertLoginHistory(Integer id);
 }
