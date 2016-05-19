@@ -18,10 +18,13 @@
 
 </head>
 <body>
-	<div id="passError" style="{color:red;}"></div>
-	<form:form modelAttribute="passwordBean" action="changePassword" method="post" onsubmit="return validatePassword();">
+	<div id="passError" style="{text-color:red;}"></div>
+	<form:form id="passwordForm" modelAttribute="passwordBean" action="changePassword" method="post">
 		<c:if test="${!empty client.stringId}">
 			<form:hidden path="id" value="${client.stringId}"/>
+		</c:if>
+		<c:if test="${!empty clientEmail}">
+			<form:hidden path="id" value="${clientEmail}"/>
 		</c:if>
 		<table>
 			<tr class="form-row">

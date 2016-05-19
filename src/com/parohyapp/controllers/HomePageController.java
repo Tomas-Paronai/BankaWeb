@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.parohyapp.api.BankMailSender;
 import com.parohyapp.api.beans.EmailForm;
 import com.parohyapp.api.beans.LoginBean;
 import com.parohyapp.api.beans.PasswordBean;
@@ -37,7 +38,7 @@ public class HomePageController {
 	ContactDAO contactDAO;
 	
 	@Autowired
-	JavaMailSender mailSender;
+	BankMailSender bankMail;
 	
 	@RequestMapping(value = "/indexLogin")
 	public ModelAndView getHomePageLogin(){
@@ -66,13 +67,11 @@ public class HomePageController {
 		return model;
 	}
 	
-	//TODO register email
-	//TODO test error handling
 	@RequestMapping(value = "sendEmail", method = RequestMethod.POST)
 	public String sendEmail(@ModelAttribute("emailBean") EmailForm emailBean, ModelMap model){
 		int clientId = contactDAO.getIdByEmail(emailBean.getEmail());
 		if(clientId > 1000){
-			sendEmail(emailBean.getEmail(),"New password request","Jop Jop Whop Whop");
+			bankMail.requestPassword(emailBean.getEmail(), clientId);
 		}
 		else{
 			model.addAttribute("error","User not found");
@@ -91,8 +90,12 @@ public class HomePageController {
 		return "loginPage";
 	}
 	
-	public void sendEmail(String address, String subject, String message){
-		//TODO send mail
-		//TODO create bean to handle email
+	//TODO de-hash clientid
+	@RequestMapping(value = "passwordRequest", method = RequestMethod.GET)
+	public ModelAndView passwordForm(@RequestParam(value = "client", required = true) String clientId){
+		ModelAndView model = new ModelAndView("newPassword");
+		model.addObject("clientEmail",clientId);
+		model.addObject("passwordBean",new PasswordBean());
+		return model;
 	}
 }

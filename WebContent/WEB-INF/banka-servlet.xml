@@ -13,8 +13,7 @@
  
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -24,8 +23,8 @@
       class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
       <property name="url" value="jdbc:mysql://192.168.22.69:3306/itbank14"/>
-      <property name="username" value="root"/>
-      <property name="password" value=""/>
+      <property name="username" value="parohy"/>
+      <property name="password" value="banka"/>
    </bean>
 	
 	<!-- Definition for Loan bean -->
@@ -67,7 +66,7 @@
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="sovybank@gmail.com" />
-		<property name="password" value="Parohy93" />
+		<property name="password" value="ITbank14" />
 		
 		<property name="javaMailProperties">
 			<props>
@@ -77,6 +76,10 @@
 				<prop key="mail.debug">true</prop>
 			</props>
 		</property>
+	</bean>
+	
+	<bean id="bankMailSender" class="com.parohyapp.api.BankMailSender">
+		<property name="mailSender" ref="mailSender"/>
 	</bean>
    
    <mvc:resources mapping="/resources/**" location="/resources/" />

@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.parohyapp.bank.Contact;
+import com.parohyapp.database.ErrorCode;
 
 public class ContactDAOImpl implements ContactDAO{
 	
@@ -32,8 +33,17 @@ public class ContactDAOImpl implements ContactDAO{
 	
 	@Override
 	public int getIdByEmail(String email){
-		String query = "SELECT id FROM client_detail WHERE Email=?";
-		return jdbcTemplateObject.queryForInt(query,new Object[]{email});
+		String query = "SELECT count(*) FROM client_detail WHERE Email=?";
+		int count = jdbcTemplateObject.queryForObject(query,new Object[]{email},Integer.class);
+		int id;
+		if(count == 1){
+			query = "SELECT ClientID FROM client_detail WHERE Email=?";
+			id = jdbcTemplateObject.queryForObject(query,new Object[]{email},Integer.class);
+		}
+		else{
+			id = ErrorCode.NO_SUCH_USER.getCode();
+		}
+		return id;
 	}
 
 	@Override

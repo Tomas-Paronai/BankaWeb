@@ -13,18 +13,22 @@
 <spring:url value="/resources/css/homePage.css" var="homeStyle"/>
 <link rel="stylesheet" type="text/css" href="${homeStyle}"/>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<spring:url value="/resources/js/validate.js" var="valScript"/>
+<script src="${valScript}"></script>
+
 </head>
 
 <body>	
-	<div id="login-container">
-	<div id="error-message">
+	<div id="login-container">	
+	<form:form id="emailForm" action="sendEmail" modelAttribute="emailBean" method="post">
+		<div id="error-message">
 			<c:if test="${!empty error}">
 				${error}
 			</c:if>
 		</div>
-	<form:form action="sendEmail" modelAttribute="emailBean" method="post">
 		<form:label path="Email">Email: </form:label>
-		<form:input path="email"/><br>
+		<form:input id="email" path="email"/><br>
 		<input type="submit" value="Send"/>
 	</form:form>
 	</div>
