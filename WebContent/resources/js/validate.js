@@ -6,8 +6,24 @@ $(document).ready(function(){
 	$("#emailForm").submit(function(){
 		return validateEmail();
 	});
+	
+	$("deactivate-card-form").ajaxForm(function(e){
+		deactivateCard(e);
+	});
 });
 
+function deactivateCard(e){
+	var url = "deactivateCard";
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: $("#deactivate-card-form").serialize(),
+		success: function(data){
+			alert(data);
+		}
+	});
+	e.preventDefault();
+}
 
 function validatePassword(){
 	var password = $("#password").val();

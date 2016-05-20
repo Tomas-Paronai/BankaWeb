@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.parohyapp.api.BankMailSender;
+import com.parohyapp.api.HashGen;
 import com.parohyapp.api.beans.EmailForm;
 import com.parohyapp.api.beans.LoginBean;
 import com.parohyapp.api.beans.PasswordBean;
@@ -63,7 +64,7 @@ public class HomePageController {
 	
 	@RequestMapping(value = "sendEmail", method = RequestMethod.GET)
 	public ModelAndView getEmailForm(@ModelAttribute("emailBean") EmailForm emailBean){
-		ModelAndView model = new ModelAndView("emailForm");
+		ModelAndView model = new ModelAndView("forms/emailForm");
 		return model;
 	}
 	
@@ -71,7 +72,8 @@ public class HomePageController {
 	public String sendEmail(@ModelAttribute("emailBean") EmailForm emailBean, ModelMap model){
 		int clientId = contactDAO.getIdByEmail(emailBean.getEmail());
 		if(clientId > 1000){
-			bankMail.requestPassword(emailBean.getEmail(), clientId);
+			String code = HashGen.getCodedId(String.valueOf(clientId));
+			bankMail.requestPassword(emailBean.getEmail(), code);
 		}
 		else{
 			model.addAttribute("error","User not found");
@@ -85,17 +87,20 @@ public class HomePageController {
 	
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
 	public String changePassword(@ModelAttribute("passwordBean") PasswordBean passwordBean, ModelMap model){
-		clientDAO.changePassword(passwordBean.getPassword(), passwordBean.getStringId());
+		String id = HashGen.getDecodedId(passwordBean.getId());
+		clientDAO.changePassword(passwordBean.getPassword(), Integer.parseInt(id));
 		model.addAttribute("loginBean",new LoginBean());
 		return "loginPage";
 	}
 	
-	//TODO de-hash clientid
 	@RequestMapping(value = "passwordRequest", method = RequestMethod.GET)
 	public ModelAndView passwordForm(@RequestParam(value = "client", required = true) String clientId){
-		ModelAndView model = new ModelAndView("newPassword");
+		ModelAndView model = new ModelAndView("forms/newPassword");
 		model.addObject("clientEmail",clientId);
 		model.addObject("passwordBean",new PasswordBean());
 		return model;
 	}
+	
+	//RequestMapping(value = "deactivateCard", method = RequestMethod.POST)
+	//public void deactivateCard()
 }

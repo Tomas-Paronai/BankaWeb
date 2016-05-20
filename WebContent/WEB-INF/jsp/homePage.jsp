@@ -111,14 +111,14 @@
 				
 				
 				<div id="deactivate-card" class="trans-content">
-					CARDS						
+					<!-- TODO <jsp:include page="forms/cardsForm.jsp"/>-->	
 				</div>
 				<div class="showcase" conn="deactivate-card">
 					<img src="${picPath}cards.jpg">
 				</div>				
 				
 				<div id="change-pass" class="trans-content">
-					<jsp:include page="newPassword.jsp"/>									
+					<jsp:include page="forms/newPassword.jsp"/>									
 				</div>
 				<div class="showcase" conn="change-pass">
 					<img src="${picPath}passwords.jpg">

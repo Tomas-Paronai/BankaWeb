@@ -1,7 +1,10 @@
 package com.parohyapp.bank;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.parohyapp.api.HashGen;
 
 public class Client {
 	
@@ -72,6 +75,16 @@ public class Client {
 	public List<Card> getCards() {
 		return cards;
 	}
+	
+	public List<Card> getActiveCards(){
+		List<Card> result = new ArrayList<Card>();
+		for(Card tmpCard : cards){
+			if(!tmpCard.getBlock()){
+				result.add(tmpCard);
+			}
+		}
+		return result;
+	}
 
 	public void setCards(List<Card> cards) {
 		if(this.cards == null){
@@ -107,7 +120,7 @@ public class Client {
 	}
 
 
-	public String getStringId(){
-		return String.valueOf(id);
+	public String getCodedId(){
+		return HashGen.getCodedId(String.valueOf(id));
 	}
 }

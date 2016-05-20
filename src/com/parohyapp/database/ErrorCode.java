@@ -4,7 +4,8 @@ public enum ErrorCode {
 	
 	INVALID_ACCESS("Wrong login",1),
 	ACCOUNT_BLOCKED("Your account has been blocked",2),
-	NO_SUCH_USER("No such user or invalid url",3);
+	NO_SUCH_USER("No such user or invalid url",3),
+	INVALID_REQUEST("Invalid request",4);
 	
 	private final String message;
 	private final int code;

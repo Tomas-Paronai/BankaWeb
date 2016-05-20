@@ -26,7 +26,7 @@ public class BankMailSender {
 	}
 	
 	//TODO hash clientID
-	public void requestPassword(String email, Integer clientId){		
+	public void requestPassword(String email, String clientId){		
 		String message = "<p>You have requested a new password. Please click the following link to change password.</p><br>"
 				+ "<a href='http://localhost:8080/BankaWeb/passwordRequest?client=" + clientId + "'>link</a><br><hr width='20'>"
 						+ "<p>Best regards, SovyBank team.</p>";		

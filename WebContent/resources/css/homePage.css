@@ -157,8 +157,15 @@ h1{
 	height: 100%;
 }
 
+.showcase img{
+	-webkit-transition: opacity 1s ease-in-out;
+  	-moz-transition: opacity 1s ease-in-out;
+  	-o-transition: opacity 1s ease-in-out;
+ 	 transition: opacity 1s ease-in-out;
+}
+
 .active{
-	display: block;
+	display: block;	
 } 
 
 

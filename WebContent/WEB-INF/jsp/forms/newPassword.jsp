@@ -20,8 +20,8 @@
 <body>
 	<div id="passError" style="{text-color:red;}"></div>
 	<form:form id="passwordForm" modelAttribute="passwordBean" action="changePassword" method="post">
-		<c:if test="${!empty client.stringId}">
-			<form:hidden path="id" value="${client.stringId}"/>
+		<c:if test="${!empty client.codedId}">
+			<form:hidden path="id" value="${client.codedId}"/>
 		</c:if>
 		<c:if test="${!empty clientEmail}">
 			<form:hidden path="id" value="${clientEmail}"/>
