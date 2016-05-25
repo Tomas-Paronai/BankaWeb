@@ -96,14 +96,14 @@
 			
 			<div id="operations-container">
 				<div id="new-transaction" class="trans-content">
-					TRANS				
+					<jsp:include page="forms/transactionForm.jsp"/>				
 				</div>				
 				<div class="showcase" conn="new-transaction">
 					<img src="${picPath}trans.jpg">	
 				</div>
 								
 				<div id="new-loan" class="trans-content">
-					LOANS						
+					<jsp:include page="forms/loanForm.jsp"/>						
 				</div>
 				<div class="showcase" conn="new-loan">
 					<img src="${picPath}loans.jpg">
@@ -111,7 +111,7 @@
 				
 				
 				<div id="deactivate-card" class="trans-content">
-					<!-- TODO <jsp:include page="forms/cardsForm.jsp"/>-->	
+					<jsp:include page="forms/cardsForm.jsp"/>	
 				</div>
 				<div class="showcase" conn="deactivate-card">
 					<img src="${picPath}cards.jpg">

@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.parohyapp.api.BankMailSender;
 import com.parohyapp.api.HashGen;
+import com.parohyapp.api.beans.CardBean;
 import com.parohyapp.api.beans.EmailForm;
+import com.parohyapp.api.beans.LoanBean;
 import com.parohyapp.api.beans.LoginBean;
 import com.parohyapp.api.beans.PasswordBean;
+import com.parohyapp.api.beans.TransactionBean;
 import com.parohyapp.bank.Client;
 import com.parohyapp.database.ErrorCode;
 import com.parohyapp.database.ErrorHandler;
@@ -56,6 +60,9 @@ public class HomePageController {
 			Client client = clientDAO.getClient(id);
 			model.addAttribute("client",client);
 			model.addAttribute("passwordBean", new PasswordBean());
+			model.addAttribute("cardBean",new CardBean());
+			model.addAttribute("transactionBean",new TransactionBean());
+			model.addAttribute("loanBean", new LoanBean());
 			return "homePage";
 		}	
 		model.addAttribute("error",ErrorHandler.findError(id));
@@ -71,7 +78,7 @@ public class HomePageController {
 	@RequestMapping(value = "sendEmail", method = RequestMethod.POST)
 	public String sendEmail(@ModelAttribute("emailBean") EmailForm emailBean, ModelMap model){
 		int clientId = contactDAO.getIdByEmail(emailBean.getEmail());
-		if(clientId > 1000){
+	if(clientId > 1000){
 			String code = HashGen.getCodedId(String.valueOf(clientId));
 			bankMail.requestPassword(emailBean.getEmail(), code);
 		}
@@ -101,6 +108,10 @@ public class HomePageController {
 		return model;
 	}
 	
-	//RequestMapping(value = "deactivateCard", method = RequestMethod.POST)
-	//public void deactivateCard()
+	/*@RequestMapping(value = "transaction", method = RequestMethod.POST)
+	public String completeTransaction(@ModelAttribute("transactionBean") TransactionBean transactionBean){
+		
+		return "redirect: "
+	}*/
+		
 }

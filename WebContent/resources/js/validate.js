@@ -7,9 +7,9 @@ $(document).ready(function(){
 		return validateEmail();
 	});
 	
-	$("deactivate-card-form").ajaxForm(function(e){
+	/*$("deactivate-card-form").ajaxForm(function(e){
 		deactivateCard(e);
-	});
+	});*/
 });
 
 function deactivateCard(e){

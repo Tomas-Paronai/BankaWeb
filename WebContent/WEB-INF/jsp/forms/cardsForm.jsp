@@ -22,9 +22,8 @@
 </head>
 <body>
 	<c:if test="${!empty client.cards}">	
-	<form:form id="deactivate-card-form" method="post">
-		<form:select path="cardId">
-			<form:options items="${client.activeCards}"/>
+	<form:form id="deactivate-card-form" method="post" action="deactivateCard" modelAttribute="cardBean">
+		<form:select path="card" items="${client.activeCards}">
 		</form:select>
 		<input type="submit" value="Continue">
 	</form:form>	

@@ -79,7 +79,7 @@ public class Client {
 	public List<Card> getActiveCards(){
 		List<Card> result = new ArrayList<Card>();
 		for(Card tmpCard : cards){
-			if(!tmpCard.getBlock()){
+			if(tmpCard.getBlock()){
 				result.add(tmpCard);
 			}
 		}
