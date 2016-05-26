@@ -58,7 +58,7 @@ h1{
 	color: black;
 }
 
-.tab li a{
+.tab li div{
 	display: inline-block;
     color: black;
     text-align: center;
@@ -132,9 +132,10 @@ h1{
 	background-color: #C1B198;
 }
 
-#op-options li a{
+#op-options li div{
 	display: inline-block;
     color: black;
+    width: 100%;
     text-align: center;
     padding: 5px 0px;
     text-decoration: none;
@@ -199,3 +200,9 @@ h1{
 	color: #fff;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

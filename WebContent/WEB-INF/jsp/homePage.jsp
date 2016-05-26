@@ -30,10 +30,10 @@
 	
 	<div id="center">
 		<ul class="tab">
-			<li><a href="#" class="tablink" data="accounts">My accounts</a></li>
-			<li><a href="#" class="tablink" data="cards">My cards</a></li>
-			<li><a href="#" class="tablink" data="loans">My loans</a></li>
-			<li><a href="#" class="tablink" data="operations">Operations</a></li>
+			<li><div class="tablink" data="accounts">My accounts</div></li>
+			<li><div class="tablink" data="cards">My cards</div></li>
+			<li><div class="tablink" data="loans">My loans</div></li>
+			<li><div class="tablink" data="operations">Operations</div></li>
 		</ul>
 		
 		<div id="content-container">		
@@ -88,10 +88,10 @@
 		
 		<div id="operations" class="tab-content">
 			<ul id="op-options">
-				<li><a href="#" class="trans-nav" data="new-transaction">Transaction</a></li>
-				<li><a href="#" class="trans-nav" data="new-loan">Take loan</a></li>
-				<li><a href="#" class="trans-nav" data="deactivate-card">Deactivate card</a></li>
-				<li><a href="#" class="trans-nav" data="change-pass">Change password</a></li>
+				<li><div class="trans-nav" data="new-transaction">Transaction</div></li>
+				<li><div class="trans-nav" data="new-loan">Take loan</div></li>
+				<li><div class="trans-nav" data="deactivate-card">Deactivate card</div></li>
+				<li><div class="trans-nav" data="change-pass">Change password</div></li>
 			</ul>
 			
 			<div id="operations-container">
@@ -134,7 +134,7 @@
 			<li><a>About</a></li>
 			<li><a>FAQ</a></li>
 			<li><a>Help/Support</a></li>
-			<li><a href="indexLogin">Log out</a></li>	
+			<li><a href="indexLogin?out=${client.id}">Log out</a></li>	
 		</ul>
 	</div>
 </body>

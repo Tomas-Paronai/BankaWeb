@@ -9,5 +9,5 @@ public interface LoanDAO extends BankDAO{
 	public Loan getLoan(Integer id);
 	public List<Loan> getLoans(Integer clientID); 
 	public void payBack(float amount, Integer id);
-	public void createLoan(float amount, float interest, Integer clientID);
+	public void createLoan(float amount, float interest, Integer accountID);
 }

@@ -14,12 +14,16 @@ $(document).ready(function(){
 
 function changeTabContent(el){
 	$(".tablink").attr('class','tablink');
+	$(".trans-nav").attr('class','trans-nav');
+	$(".trans-content").css("display","none");
 	$(el).toggleClass("chosen");
 	$(".tab-content").css("display","none");
 	$("#"+$(el).attr("data")).css("display","block");
 }
 
 function changeTransContent(el){
+	$(".trans-nav").attr('class','trans-nav');
+	$(el).toggleClass("chosen");
 	$(".trans-content").css("display","none");
 	$("#"+$(el).attr("data")).css("display","block");
 }

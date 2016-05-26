@@ -21,6 +21,7 @@ import com.parohyapp.database.clientcontact.ContactDAO;
 import com.parohyapp.database.loan.LoanDAO;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
 
 public class ClientDAOImpl implements ClientDAO{	
 	
@@ -81,6 +82,17 @@ public class ClientDAOImpl implements ClientDAO{
 	}
 	
 	@Override
+	public Client getClientBySession(String sessionId){
+		String query = "SELECT * FROM online INNER JOIN clients ON online.ClientID=clients.ClientID WHERE online.SessionID=?";
+		List<Client> clients = jdbcTemplateObject.query(query,new Object[]{sessionId}, new ClientRowMapper());
+		
+		if(clients.size() > 0){
+			return clients.get(0);
+		}
+		return null;
+	}
+	
+	@Override
 	public List<Client> listClients() {
 		String query = "SELECT * FROM clients";
 		List<Client> clients = jdbcTemplateObject.query(query, new ClientRowMapper());
@@ -110,6 +122,7 @@ public class ClientDAOImpl implements ClientDAO{
 				if(getLoginTry(id) <=3 ){
 					deleteLoginTry(id);
 					insertLoginHistory(id);
+					setClientOnline(id, RequestContextHolder.currentRequestAttributes().getSessionId());
 					return id;
 				}
 				else{
@@ -171,5 +184,17 @@ public class ClientDAOImpl implements ClientDAO{
 		jdbcTemplateObject.update(query,new Object[]{id,timestamp});
 	}
 	
-
+	@Override
+	public void setClientOnline(int clientId, String sessionId){
+		String query = "INSERT INTO `online` (ClientID,SessionID) VALUES (?,?)";
+		System.out.println("Inserting client: " + clientId + " in online table.");
+		
+		jdbcTemplateObject.update(query, new Object[]{clientId,sessionId});
+	}
+	
+	@Override
+	public void unsetClientOnline(int clientId){
+		String query = "DELETE FROM `online` WHERE ClientID=?";
+		jdbcTemplateObject.update(query, new Object[]{clientId});
+	}
 }

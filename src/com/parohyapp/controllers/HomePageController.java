@@ -1,14 +1,20 @@
 package com.parohyapp.controllers;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.parohyapp.api.BankMailSender;
@@ -46,7 +52,31 @@ public class HomePageController {
 	BankMailSender bankMail;
 	
 	@RequestMapping(value = "/indexLogin")
-	public ModelAndView getHomePageLogin(){
+	public ModelAndView getHomePageLogin(@CookieValue(value = "curSession", defaultValue = "0") String sessionId,
+										 @RequestParam(value = "out", required = false) String out)
+	{	
+		if(out != null){
+			clientDAO.unsetClientOnline(Integer.parseInt(out));
+			return getLoginPage();
+		}
+		
+		if(sessionId != "0"){
+			ModelAndView homeModel = new ModelAndView("homePage");
+			Client client = clientDAO.getClientBySession(sessionId);
+			
+			if(client == null){
+				return getLoginPage();
+			}
+			
+			homeModel.addObject("client",client);
+			getHomeModel(homeModel.getModelMap());
+			return homeModel;
+		}
+		
+		return getLoginPage();
+	}
+	
+	private ModelAndView getLoginPage(){
 		ModelAndView model = new ModelAndView("loginPage");
 		LoginBean loginBean = new LoginBean();
 		model.addObject("loginBean",loginBean);
@@ -54,19 +84,38 @@ public class HomePageController {
 	}
 	
 	@RequestMapping(value = "/loginClient", method = RequestMethod.POST)
-	public String loginClient(@ModelAttribute("loginBean") LoginBean loginBean, ModelMap model){
+	public String loginClient(HttpServletResponse response, @ModelAttribute("loginBean") LoginBean loginBean, ModelMap model){
 		int id = clientDAO.getLoginClient(loginBean.getUsername(), loginBean.getPassword());
 		if(id>1000){
 			Client client = clientDAO.getClient(id);
 			model.addAttribute("client",client);
-			model.addAttribute("passwordBean", new PasswordBean());
-			model.addAttribute("cardBean",new CardBean());
-			model.addAttribute("transactionBean",new TransactionBean());
-			model.addAttribute("loanBean", new LoanBean());
+			getHomeModel(model);
+			
+			response.addCookie(new Cookie("curSession",RequestContextHolder.currentRequestAttributes().getSessionId()));
 			return "homePage";
 		}	
 		model.addAttribute("error",ErrorHandler.findError(id));
 		return "loginPage";
+	}
+	
+	/*TODO client is empty after passing by*/
+	@RequestMapping(value = {"/loginClient/{subPage}","/indexLogin/{subPage}"}, method = RequestMethod.GET)
+	public String loginClient(@CookieValue(value = "curSession", defaultValue = "0") String sessionId,
+							  @PathVariable String subPage, ModelMap model){
+		if(sessionId != "0"){
+			model.addAttribute("client",clientDAO.getClientBySession(sessionId));
+			getHomeModel(model);
+			return "homePage";
+		}
+		model.addAttribute("loginBean",new LoginBean());
+		return "loginPage";
+	}
+	
+	private void getHomeModel(ModelMap model){
+		model.addAttribute("passwordBean", new PasswordBean());
+		model.addAttribute("cardBean",new CardBean());
+		model.addAttribute("transactionBean",new TransactionBean());
+		model.addAttribute("loanBean", new LoanBean());
 	}
 	
 	@RequestMapping(value = "sendEmail", method = RequestMethod.GET)
@@ -109,9 +158,16 @@ public class HomePageController {
 	}
 	
 	/*@RequestMapping(value = "transaction", method = RequestMethod.POST)
-	public String completeTransaction(@ModelAttribute("transactionBean") TransactionBean transactionBean){
+	public ModelAndView completeTransaction(@ModelAttribute("transactionBean") TransactionBean transactionBean){
+		ModelAndView model = new ModelAndView("homePage");
 		
-		return "redirect: "
+		return model;		
 	}*/
+	
+	@RequestMapping(value = "takeLoan", method = RequestMethod.POST)
+	public ModelAndView takeLoan(@ModelAttribute("loanBean") LoanBean loanBean){
+		ModelAndView model = new ModelAndView("homePage");
 		
+		return model;
+	}
 }

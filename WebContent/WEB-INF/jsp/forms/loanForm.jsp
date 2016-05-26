@@ -29,13 +29,14 @@
 			<tr>
 				<td>Amount:</td>
 				<td>
-					<form:input id="amount" path="amount" required="true"/>
+					<form:input id="loanAmount" path="amount" type="number" required="true"/>
 				</td>
 			</tr>
 			<tr>
 				<td>Interest: </td>
 				<td>
-					<form:radiobutton path="interest" value="0.1" selected="true"/>10%
+					<form:radiobutton path="interest" value="0.05" checked="checked"/>5%
+					<form:radiobutton path="interest" value="0.1" />10%
 					<form:radiobutton path="interest" value="0.2"/>20%
 					<form:radiobutton path="interest" value="0.3"/>30%
 					<form:radiobutton path="interest" value="0.4"/>40%

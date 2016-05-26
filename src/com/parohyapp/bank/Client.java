@@ -19,6 +19,10 @@ public class Client {
 	private List<Card> cards;
 	private List<Loan> loans;
 	
+	public Client(){
+		
+	}
+	
 	public Client(int id,String firstName, String lastName, Date dob) {
 		super();
 		this.id = id;

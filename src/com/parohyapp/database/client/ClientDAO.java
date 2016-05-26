@@ -15,6 +15,7 @@ import com.parohyapp.database.loan.LoanDAO;
 public interface ClientDAO extends BankDAO{
 
 	   public Client getClient(Integer id);
+	   public Client getClientBySession(String sessionId);
 	   public List<Client> listClients();
 	   public void setLoanSource(LoanDAO loanDAO);
 	   public void setAccountSource(AccountDAO accountDAO);
@@ -27,4 +28,6 @@ public interface ClientDAO extends BankDAO{
 	   public void addLoginTry(Integer id);
 	   public void deleteLoginTry(Integer id);
 	   public void insertLoginHistory(Integer id);
+	   public void setClientOnline(int clientId, String sessionId);
+	   public void unsetClientOnline(int clientId);
 }

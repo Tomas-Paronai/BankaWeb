@@ -46,9 +46,9 @@ public class LoanDAOImpl implements LoanDAO{
 	}
 
 	@Override
-	public void createLoan(float amount, float interest, Integer clientID) {
-		String query =  "INSERT INTO loans (ClientID,Amount,Interest) VALUES (?,?,?)";		
-		jdbcTemplateObject.update(query,new Object[]{clientID,amount,interest});
+	public void createLoan(float amount, float interest, Integer accountID) {
+		//String query =  "INSERT INTO loans (ClientID,Amount,Interest) VALUES (?,?,?)";		
+		//jdbcTemplateObject.update(query,new Object[]{clientID,amount,interest});
 	}
 
 }
